@@ -1,4 +1,4 @@
-export const faqs = [
+export const fyqs = [
   {
     question: "What makes CogniCoach stand out as a career development platform?",
     answer:

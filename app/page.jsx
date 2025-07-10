@@ -10,14 +10,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 import { howItWorks } from "@/data/howItWorks";
 import { testimonial } from "@/data/testimonials";
+
+
+import Image from 'next/image';
+import { fyqs } from "@/data/fyqs";
+import { Link } from "lucide-react";
+
 
 export default function Home(){
   return <div>
    
     <div className="grid-background"></div>
-    <HeroSection />
+    <HeroSection/>
     <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
       <div className="container mx-auto px-4 md:px-6">
         <h2 className="text-3xl front-bold tracking-tighter text-center mb-12">
@@ -95,7 +107,7 @@ export default function Home(){
       </div>
     </section>
 
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/50">
       <div className="container mx-auto px-4 md:px-6">
         <h2 className="text-3xl front-bold tracking-tighter text-center mb-12">
         What Our Users Say
@@ -108,7 +120,33 @@ export default function Home(){
            >
               
               <CardContent className="pt-6 text-center flex flex-col items-center">
-             
+               <div className="flex flex-col space-y-4">
+                   <div className="flex items-center space-x-4">
+                         <div className="relative h-12 w-12 flex-shrink-0"><Image
+                           width={40}
+                           height={40}
+                           src={testimonial.image}
+                           alt={testimonial.author}
+                           className="rounded-full object-cover border-2 border-primary/20"
+                         /></div>
+                         <div>
+                          <p className="font-semibold">{testimonial.author}</p>
+                          <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                          <p className="text-sm text-primary">{testimonial.company}</p>
+                         </div>
+                   </div>
+                   <blockquote>
+                    <p className="text-muted-foreground italic relative">
+                      <span className="text-3xl text-primary absolute -top-4 -left-2">
+                        &quot;
+                      </span>
+                      {testimonial.quote}
+                      <span className="text-3xl text-primary absolute -bottom-4 -right-2">
+                        &quot;
+                      </span>  
+                    </p>
+                   </blockquote>
+               </div>
               </CardContent>
              
             </Card>);
@@ -116,6 +154,62 @@ export default function Home(){
         </div>
       </div>
     </section>
+
+     <section className="w-full py-12 md:py-24 lg:py-32 bg-background">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center max-w-3xl mx-auto mb-12">
+        <h2 className="text-3xl front-bold mb-4 ">
+          Frequently Asked Questions
+        </h2>
+        <p className="text-muted-foreground">
+          Find Answers Here
+        </p>  
+       </div> 
+        <div className="max-w-6xl mx-auto" >
+          <Accordion type="single" collapsible className="w-full">
+          {fyqs.map((fyqs, index) => {
+            return(
+              <AccordionItem key={index} value={`item-${index}`}>
+              <AccordionTrigger>{fyqs.question}</AccordionTrigger>
+              <AccordionContent>
+               {fyqs.answer}
+              </AccordionContent>
+              </AccordionItem>
+            );
+            })}
+           </Accordion> 
+        </div>
+      </div>
+    </section>
+
+
+
+    <section className="w-full bg-black py-20">
+  <div
+    className="mx-auto w-full px-8 py-16 rounded-lg text-center"
+    style={{
+      background: "linear-gradient(to bottom, #e0e5ec, #6c7a89)",
+    }}
+  >
+    <h2 className="text-4xl font-bold tracking-tight text-primary-foreground sm:text-5xl md:text-6xl">
+      Ready to Accelerate Your Career?
+    </h2>
+    <p className="mx-auto max-w-[600px] text-primary-foreground/80 md:text-xl">
+      Join thousands of professionals who are advancing their careers with AI-powered guidance.
+    </p>
+    <Link href="/dashboard" passHref>
+    <Button
+    size="lg"
+    variant="secondary"
+    className="h-11 mt-5 animate-bounce"
+    >
+      Start Your Journey Today 
+    </Button>
+    </Link>
+
+  </div>
+</section>
+
 
     </div>;
 }
